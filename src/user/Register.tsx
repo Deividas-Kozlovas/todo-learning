@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { registerWithEmailAndPassword } from "../services/AuthServices";
 
 interface UserData {
   name: string;
@@ -20,8 +21,21 @@ const Register = () => {
     });
   };
 
+  const submitHandler = (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    if (!userData.name || !userData.email || !userData.password) {
+      alert("Please fill in all fields.");
+      return;
+    }
+    registerWithEmailAndPassword(
+      userData.name,
+      userData.email,
+      userData.password
+    );
+  };
+
   return (
-    <form>
+    <form onSubmit={submitHandler}>
       <label htmlFor="name">Your name</label>
       <input
         type="text"
@@ -49,6 +63,7 @@ const Register = () => {
         onChange={handleChange}
         value={userData.password}
       />
+      <button type="submit">Register</button>
     </form>
   );
 };

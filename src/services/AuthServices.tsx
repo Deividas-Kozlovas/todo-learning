@@ -1,6 +1,6 @@
 import { auth, db } from "../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { collection, addDoc } from "firebase/firestore";
+import { addDoc, collection } from "firebase/firestore";
 
 const registerWithEmailAndPassword = async (
   name: string,
@@ -22,7 +22,11 @@ const registerWithEmailAndPassword = async (
       authProvider: "local",
     });
   } catch (error) {
-    console.error("Error registering user:", error);
+    if (error instanceof Error) {
+      console.error("Error message:", error.message);
+    } else {
+      console.error("Unexpected error:", error);
+    }
   }
 };
 
