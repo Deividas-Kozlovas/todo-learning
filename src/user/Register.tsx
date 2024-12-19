@@ -35,36 +35,58 @@ const Register = () => {
   };
 
   return (
-    <form onSubmit={submitHandler}>
-      <label htmlFor="name">Your name</label>
-      <input
-        type="text"
-        id="name"
-        placeholder="Enter your name"
-        name="name"
-        onChange={handleChange}
-        value={userData.name}
-      />
-      <label htmlFor="email">Tour email</label>
-      <input
-        type="email"
-        id="email"
-        placeholder="Enter your email"
-        name="email"
-        onChange={handleChange}
-        value={userData.email}
-      />
-      <label htmlFor="password">Your password</label>
-      <input
-        type="password"
-        id="password"
-        placeholder="Enter your password"
-        name="password"
-        onChange={handleChange}
-        value={userData.password}
-      />
-      <button type="submit">Register</button>
-    </form>
+    <div className="container mt-5">
+      <h2 className="text-center mb-4">Register</h2>
+      <form onSubmit={submitHandler} className="bg-light p-4 rounded shadow-sm">
+        <div className="mb-3">
+          <label htmlFor="name" className="form-label">
+            Your name
+          </label>
+          <input
+            type="text"
+            id="name"
+            placeholder="Enter your name"
+            name="name"
+            className="form-control"
+            onChange={handleChange}
+            value={userData.name}
+          />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="email" className="form-label">
+            Your email
+          </label>
+          <input
+            type="email"
+            id="email"
+            placeholder="Enter your email"
+            name="email"
+            className="form-control"
+            onChange={handleChange}
+            value={userData.email}
+          />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="password" className="form-label">
+            Your password
+          </label>
+          <input
+            type="password"
+            id="password"
+            placeholder="Enter your password"
+            name="password"
+            className="form-control"
+            onChange={handleChange}
+            value={userData.password}
+          />
+        </div>
+        <div className="d-grid gap-2">
+          <button type="submit" className="btn btn-primary">
+            Register
+          </button>
+        </div>
+      </form>
+    </div>
   );
 };
 
