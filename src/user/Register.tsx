@@ -1,5 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { registerWithEmailAndPassword } from "../services/AuthServices";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../firebase";
+import { useNavigate } from "react-router-dom";
 
 interface UserData {
   name: string;
@@ -14,12 +17,20 @@ const Register = () => {
     password: "",
   });
 
+  const [user, loading, error] = useAuthState(auth);
+  const navigate = useNavigate();
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserData({
       ...userData,
       [e.target.name]: e.target.value,
     });
   };
+
+  useEffect(() => {
+    if (loading) return;
+    if (user) navigate("/");
+  }, [loading, user]);
 
   const submitHandler = (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -37,6 +48,7 @@ const Register = () => {
   return (
     <div className="container mt-5">
       <h2 className="text-center mb-4">Register</h2>
+      {error && <p className="text-danger">{error.message}</p>}
       <form onSubmit={submitHandler} className="bg-light p-4 rounded shadow-sm">
         <div className="mb-3">
           <label htmlFor="name" className="form-label">
