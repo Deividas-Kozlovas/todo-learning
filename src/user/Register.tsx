@@ -17,7 +17,7 @@ const Register = () => {
     password: "",
   });
 
-  const [error] = useAuthState(auth);
+  const [, , error] = useAuthState(auth);
   const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

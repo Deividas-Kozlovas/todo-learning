@@ -33,34 +33,51 @@ const Login = () => {
   const submitHandler = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     if (!userData.email || !userData.password) {
-      alert("Pleas fill in all fields");
+      alert("Please fill in all fields");
       return;
     }
     loginWithEmailAndPassword(userData.email, userData.password);
   };
 
   return (
-    <form onSubmit={submitHandler}>
-      <label htmlFor="email">Your email</label>
-      <input
-        type="email"
-        name="email"
-        id="email"
-        value={userData.email}
-        placeholder="Enter your email"
-        onChange={handleChange}
-      />
-      <label htmlFor="password">Your password</label>
-      <input
-        type="password"
-        name="password"
-        id="password"
-        value={userData.password}
-        placeholder="Enter your password"
-        onChange={handleChange}
-      />
-      <button type="submit">Login</button>
-    </form>
+    <div className="container mt-5">
+      <h2 className="text-center mb-4">Login</h2>
+      <form onSubmit={submitHandler} className="bg-light p-4 rounded shadow-sm">
+        <div className="mb-3">
+          <label htmlFor="email" className="form-label">
+            Your email
+          </label>
+          <input
+            type="email"
+            name="email"
+            id="email"
+            value={userData.email}
+            placeholder="Enter your email"
+            className="form-control"
+            onChange={handleChange}
+          />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="password" className="form-label">
+            Your password
+          </label>
+          <input
+            type="password"
+            name="password"
+            id="password"
+            value={userData.password}
+            placeholder="Enter your password"
+            className="form-control"
+            onChange={handleChange}
+          />
+        </div>
+        <div className="d-grid gap-2">
+          <button type="submit" className="btn btn-primary">
+            Login
+          </button>
+        </div>
+      </form>
+    </div>
   );
 };
 
