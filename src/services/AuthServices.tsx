@@ -2,6 +2,7 @@ import { auth, db } from "../firebase";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signOut,
 } from "firebase/auth";
 import { addDoc, collection } from "firebase/firestore";
 
@@ -52,4 +53,17 @@ const registerWithEmailAndPassword = async (
   }
 };
 
-export { registerWithEmailAndPassword, loginWithEmailAndPassword };
+const logoutUser = async () => {
+  try {
+    await signOut(auth);
+    return { success: true };
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error("Error message:", error.message);
+    } else {
+      console.error("Unexpected error:", error);
+    }
+  }
+};
+
+export { registerWithEmailAndPassword, loginWithEmailAndPassword, logoutUser };
