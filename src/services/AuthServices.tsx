@@ -1,6 +1,28 @@
 import { auth, db } from "../firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import { addDoc, collection } from "firebase/firestore";
+
+const loginWithEmailAndPassword = async (email: string, password: string) => {
+  try {
+    const userCredential = await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+    const user = userCredential.user;
+
+    return { success: true, user };
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error("Error message:", error.message);
+    } else {
+      console.error("Unexpected error:", error);
+    }
+  }
+};
 
 const registerWithEmailAndPassword = async (
   name: string,
@@ -30,4 +52,4 @@ const registerWithEmailAndPassword = async (
   }
 };
 
-export { registerWithEmailAndPassword };
+export { registerWithEmailAndPassword, loginWithEmailAndPassword };

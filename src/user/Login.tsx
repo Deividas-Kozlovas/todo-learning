@@ -1,4 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { useNavigate } from "react-router-dom";
+import { auth } from "../firebase";
+import { loginWithEmailAndPassword } from "../services/AuthServices";
 
 interface UserData {
   email: string;
@@ -11,9 +15,29 @@ const Login = () => {
     password: "",
   });
 
-  function handleChange() {}
+  const [user, loading] = useAuthState(auth);
+  const navigate = useNavigate();
 
-  function submitHandler() {}
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUserData({
+      ...userData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  useEffect(() => {
+    if (loading) return;
+    if (user) navigate("/home");
+  }, [loading, user]);
+
+  const submitHandler = (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    if (!userData.email || !userData.password) {
+      alert("Pleas fill in all fields");
+      return;
+    }
+    loginWithEmailAndPassword(userData.email, userData.password);
+  };
 
   return (
     <form onSubmit={submitHandler}>

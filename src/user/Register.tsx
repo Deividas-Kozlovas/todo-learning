@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { registerWithEmailAndPassword } from "../services/AuthServices";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../firebase";
@@ -17,7 +17,7 @@ const Register = () => {
     password: "",
   });
 
-  const [user, loading, error] = useAuthState(auth);
+  const [error] = useAuthState(auth);
   const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,11 +26,6 @@ const Register = () => {
       [e.target.name]: e.target.value,
     });
   };
-
-  useEffect(() => {
-    if (loading) return;
-    if (user) navigate("/");
-  }, [loading, user]);
 
   const submitHandler = (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -43,6 +38,7 @@ const Register = () => {
       userData.email,
       userData.password
     );
+    navigate("/");
   };
 
   return (
